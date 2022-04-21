@@ -19,36 +19,50 @@ URL = 'https://shopping.naver.com/home/p/index.naver'
 print(URL)
 print(검색어)
 
+# i = 0
+# while i <= 1:
+#     i = i + 1
+driver = webdriver.Chrome(executable_path='chromedriver')
+driver.get(url=URL)
 
-i = 0
-while i <= 1:
-    i = i + 1
-    driver = webdriver.Chrome(executable_path='chromedriver')
-    driver.get(url=URL)
+# 텍스트박스 입력
+inputElement = driver.find_element(By.XPATH, "//*[@id='autocompleteWrapper']/input[1]")
+inputElement.send_keys(검색어)
 
-    # 텍스트박스 입력
-    inputElement = driver.find_element(By.XPATH, "//*[@id='autocompleteWrapper']/input[1]")
-    inputElement.send_keys(검색어)
+# 검색버튼 클릭
+searchElement = driver.find_element(By.XPATH, "//*[@id='autocompleteWrapper']/a[2]")
+searchElement.click()
+sleep(2)
 
-    # 검색버튼 클릭
-    searchElement = driver.find_element(By.XPATH, "//*[@id='autocompleteWrapper']/a[2]")
-    searchElement.click()
-    sleep(2)
+# 리스트 클릭
+listElement = driver.find_element(By.XPATH,
+                                  "//*[@id='__next']/div/div[2]/div/div[3]/div[1]/ul/div/div[1]/li/div[1]/div[3]/div/a")
+listElement.click()
+sleep(2)
 
-    # 리스트 클릭
-    listElement = driver.find_element(By.XPATH,
-                                      "//*[@id='__next']/div/div[2]/div/div[3]/div[1]/ul/div/div[1]/li/div[1]/div[3]/div/a")
-    listElement.click()
-    sleep(2)
-    
-    # 업체 클릭
+# 업체 클릭
 
-    storeElement = driver.find_element(By.XPATH, "//a[contains(text(), '와우펫x창조')]")
-    storeElement.click()
+storeElement = driver.find_element(By.XPATH, "//*[contains(text(), '뉴런렙타일')]")
+# storeElement = driver.find_element(By.XPATH, "//a[contains(text(), '와우펫')]")
+storeElement.click()
 
-    sleep(5)
+sleep(2)
 
-    driver.close()
+# parent
+p = driver.window_handles[0]
+driver.close()
+
+# child01
+c01 = driver.window_handles[1]
+driver.switch_to.window(c01)
+driver.close()
+
+driver.close()
+
+# child02
+# c02 = driver.window_handles[2]
+# driver.switch_to.window(c02)
+# driver.close()
 
 
 
